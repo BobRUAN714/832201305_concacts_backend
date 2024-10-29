@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruoyi.system.mapper.AddressBookMapper">
+
+    <!-- 查询所有联系人 -->
+    <select id="selectAddressBookList" parameterType="com.ruoyi.system.domain.AddressBook" resultType="com.ruoyi.system.domain.AddressBook">
+        SELECT id, name, phone, email, company, position, remark
+        FROM address_book
+        <where>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone = #{phone}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据ID查询联系人 -->
+    <select id="selectAddressBookById" parameterType="long" resultType="com.ruoyi.system.domain.AddressBook">
+        SELECT id, name, phone, email, company, position, remark
+        FROM address_book WHERE id = #{id}
+    </select>
+
+    <!-- 新增联系人 -->
+    <insert id="insertAddressBook" parameterType="com.ruoyi.system.domain.AddressBook">
+        INSERT INTO address_book (name, phone, email, company, position, remark)
+        VALUES (#{name}, #{phone}, #{email}, #{company}, #{position}, #{remark})
+    </insert>
+
+    <!-- 更新联系人 -->
+    <update id="updateAddressBook" parameterType="com.ruoyi.system.domain.AddressBook">
+        UPDATE address_book
+        SET name = #{name},
+            phone = #{phone},
+            email = #{email},
+            company = #{company},
+            position = #{position},
+            remark = #{remark}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除联系人 -->
+    <delete id="deleteAddressBookById" parameterType="long">
+        DELETE FROM address_book WHERE id = #{id}
+    </delete>
+
+</mapper>
